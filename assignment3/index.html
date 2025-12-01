@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>D3 Basis Vector Transformation</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background: #f8f9fa;
+      text-align: center; 
+      justify-content: center;
+      align-items: center;
+    }
+
+    svg {
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+      border-radius: 8px;
+    }
+
+    text {
+      font-family: "Arial", sans-serif;
+    }
+
+    .diagram {
+        display: flex;
+        flex-direction: column; 
+        align-items: center;      
+        text-align: center;   
+        margin-top: 100px;
+        margin-bottom: 200px;
+        display: none;
+    }
+
+    .row {
+        display: flex;           
+        justify-content: center;
+        gap: 20px;               
+    }
+
+    .item {
+        text-align: center;      
+         width: 600px; 
+    }
+
+    .item img {
+        width: 500px;            
+        height: auto;
+        display: block;          
+        margin: 0 auto;          
+    }
+    .buttons {
+        margin-top: 30px;
+    }
+
+  </style>
+</head>
+<body>
+    <p style="font-size:50px; margin-top: 50px;">Assignment 3</p>
+    <button class="buttons" onclick="showVectorDiagram()">Show Vector Diagram</button>
+    <button class="buttons" onclick="showWordNetwork()">Show Word Network</button>
+    <button class="buttons" onclick="showVennDiagram()">Show Venn Diagram</button>
+    <button class="buttons" onclick="showBarGraph()">Show BarGraph</button>
+    <button class="buttons" onclick="showFunction()">Show FunctionGraph</button>
+    <div id = "vector_diagram" class = "diagram" style="display: none;">
+        <svg id="vector_diagram_canvas" width="600" height="300"></svg>
+        <script src="vector_diagram.js" defer></script>
+        <p>Drag dot to move vectors</p>
+        <div class="row" style ="margin-top: 50px;">
+            <div class="item">
+                <img src="./vector_diagram_image/1.png" alt="1">
+                <p>1. Asked ChatGPT to how to make grid on with D3.js</p>
+            </div>
+            <div class="item">
+                <img src="./vector_diagram_image/2.png" alt="2">
+                <p>2. Asked ChatGPT to how to make dot grid with D3.js</p>
+            </div>
+            <div class="item">
+                <img src="./vector_diagram_image/3.png" alt="3">
+                <p>3. Asked ChatGPT to how to make labels with D3.js</p>
+            </div>
+        </div>
+        <div class="row" style ="margin-top: 50px;">
+            <div class="item">
+                <img src="./vector_diagram_image/4.png" alt="4">
+                <p>4. Based on the knowledge I made grid, added lines connecting points</p>
+            </div>
+            <div class="item">
+                <img src="./vector_diagram_image/5.png" alt="5">
+                <p>5. Asked ChatGPT how to add dotted strokes</p>
+            </div>
+            <div class="item">
+                <img src="./vector_diagram_image/6.png" alt="6">
+                <p>6. Asked ChatGPT to add arrow head with polygon (I tried to add arrow head with marker but it does not move along with transition animation, so I used polygon method instead) </p>
+            </div>
+        </div>
+        <div class="row" style ="margin-top: 50px;">
+            <div class="item">
+                <img src="./vector_diagram_image/7.png" alt="7">
+                <p>7. Asked ChatGPT to rotate arrow head</p>
+            </div>
+            <div class="item">
+                <img src="./vector_diagram_image/7.png" alt="8">
+                <p>8. Asked ChatGPT to add transition animation</p>
+            </div>
+            <div class="item">
+                <img src="./vector_diagram_image/8.png" alt="9">
+                <p>8. Asked ChatGPT to add interaction for dragging dots to update arrows</p>
+            </div>
+        </div>
+    </div>
+
+    <div id = "word_network" class = "diagram">
+        <svg id="word_network_canvas" width="600" height="300"></svg>
+        <script src="word_network.js" defer></script>
+        <p>Drag word to move</p>
+         <div class="row" style ="margin-top: 50px;">
+            <div class="item">
+                <img src="./word_network/1.png" alt="1">
+                <p>1. Added words on the svg canvas first using location and text</p>
+            </div>
+            <div class="item">
+                <img src="./word_network/2.png" alt="2">
+                <p>2. Added lines between words</p>
+            </div>
+            <div class="item">
+                <img src="./word_network/3.png" alt="3">
+                <p>3. Aligend words to be center of the location</p>
+            </div>
+        </div>
+        <div class="row" style ="margin-top: 50px;">
+            <div class="item">
+                <img src="./word_network/4.png" alt="4">
+                <p>4. Added box which covers the words</p>
+            </div>
+            <div class="item">
+                <img src="./word_network/5.png" alt="5">
+                <p>5. Added stroke and color of the boxes</p>
+            </div>
+            <div class="item">
+                <img src="./word_network/6.png" alt="6">
+                <p>6. Changed color of the strokes and removed duplicated lines to prepare transition </p>
+            </div>
+        </div>
+        <div class="row" style ="margin-top: 50px;">
+            <div class="item">
+                <img src="./word_network/7.png" alt="7">
+                <p>7. Added transition and drag interaction debug with ChatGPT</p>
+            </div>
+        </div>  
+    </div>
+
+    <div id = "venn_diagram" class = "diagram">
+        <svg id="venn_diagram_canvas" width="600" height="300"></svg>
+        <div>
+            <input id="circleCount" type="number" min="2" max="6" value="3">
+            <button onclick="drawVenn()">Draw</button>
+        </div>
+        <p>Input 2~6 integer to see Venn Diagram</p>
+        <script src="venn_diagram.js" defer></script>
+
+        <div class="row" style ="margin-top: 50px;">
+            <div class="item">
+                <img src="./venn_diagram_image/1.png" alt="1">
+                <p>1. Based on the knowledge from vector diagram, created circle and text manually</p>
+            </div>
+            <div class="item">
+                <img src="./venn_diagram_image/2.png" alt="2">
+                <p>2. Adjust size and location of circle</p>
+            </div>
+            <div class="item">
+                <img src="./venn_diagram_image/3.png" alt="3">
+                <p>3. Asked ChatGPT to how to locate multiple circles and changed location of text based on the center of the circle</p>
+            </div>
+        </div>
+        <div class="row" style ="margin-top: 50px;">
+            <div class="item">
+                <img src="./venn_diagram_image/4.png" alt="4">
+                <p>4. Added interaction input</p>
+            </div>
+            <div class="item">
+                <img src="./venn_diagram_image/4.png" alt="5">
+                <p>5. Added transition</p>
+            </div>
+        </div>
+    </div>
+
+    <div id = "bar_graph" class = "diagram">
+        <svg id="bar_graph_canvas" width="600" height="300"></svg>
+        <script src="bar_graph.js" defer></script>
+        <p>Hover mouse cursor on the graph to see value</p>
+        <div class="row" style ="margin-top: 50px;">
+            <div class="item">
+                <img src="./bar_graph_image/1.png" alt="1">
+                <p>1. Just copy paste sample code of the bar graph from the slide</p>
+            </div>
+            <div class="item">
+                <img src="./bar_graph_image/2.png" alt="2">
+                <p>2. Adjust the location of the bar graph </p>
+            </div>
+            <div class="item">
+                <img src="./bar_graph_image/3.png" alt="3">
+                <p>3. Paired two bar graph in on group and created three groups like example image in the slide</p>
+            </div>
+        </div>
+        <div class="row" style ="margin-top: 50px;">
+            <div class="item">
+                <img src="./bar_graph_image/4.png" alt="4">
+                <p>4. Changed style of bar graph and added texts&lines</p>
+            </div>
+            <div class="item">
+                <img src="./bar_graph_image/5.png" alt="5">
+                <p>5. Added hovering interaction</p>
+            </div>
+        </div>
+    </div>
+
+    <div id = "function" class = "diagram">
+        <svg id="function_canvas" width="600" height="300"></svg>
+        <script src="function.js" defer></script>
+        <p>Drag dotted lines to change area</p>
+        <div class="row" style ="margin-top: 50px;">
+            <div class="item">
+                <img src="./function_image/1.png" alt="1">
+                <p>1. Captured image from slides and aksed ChatGPT to make it similar with d3.js</p>
+            </div>
+            <div class="item">
+                <img src="./function_image/2.png" alt="2">
+                <p>2. Fixed some codes about area and dotted lines </p>
+            </div>
+            <div class="item">
+                <img src="./function_image/3.png" alt="3">
+                <p>3. Tried to limit the length of dotted line to fit to the graph</p>
+            </div>
+        </div>
+        <div class="row" style ="margin-top: 50px;">
+            <div class="item">
+                <img src="./function_image/4.png" alt="4">
+                <p>4. Added transition & drag interation and revert the length of the dotted lines </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
